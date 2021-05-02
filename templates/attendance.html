@@ -1,0 +1,22 @@
+{% extends 'layout.html' %} {% block content %}
+<div class="container">
+  MARK YOUR ATTENDANCE
+  <div>
+    <span>
+      <form action="gohome/{{id}}" method="GET">
+        <button type="submit" class="btn btn-blue btn-lg">Deny</button>
+      </form>
+
+      <form action="verify{{id}}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-blue btn-lg">Confirm</button>
+      </form>
+    </span>
+  </div>
+  <span>
+    <form action="deny/{{id}}" method="GET">
+      <button type="submit" class="btn btn-blue btn-lg">Deny</button>
+    </form>
+  </span>
+</div>
+{% endblock %}

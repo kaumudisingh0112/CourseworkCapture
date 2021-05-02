@@ -1,0 +1,149 @@
+
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block title %}Student Login Portal{% endblock %}
+{% block content %}
+    <div class="page-preloader">
+        <div class="spinner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+    </div>
+    
+   
+
+
+
+    <!--//** Banner**//-->
+
+    <section id="home">
+
+        <div class="container">
+            <div class="row">
+                <!-- Introduction -->
+                <div class="col-md-6 caption">
+                    <h1>Welcome To College</h1>
+                    <h2>
+                        I 
+                        <span class="animated-text"></span>
+                        <span class="typed-cursor"></span>
+                    </h2>
+                    <p>I am an attendance manager that checks whether a student is present by facial recognition.</p>
+                    <button class="btn btn-transparent" type="button"  data-toggle="modal" data-target="#myModal">
+                        Get Started
+                    </button>             
+                </div>           
+            </div>
+        </div>
+    </section>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Input unique id and wait for webcam</h4>
+        </div>
+        <div class="modal-body">
+          <ul>
+            <li>For higher accuracy, make sure to stay in room with good lightning.</li>
+            <li>Please remove any type of accesories from face.</li>
+            <li>Make sure your face in clearly visible in camera.</li>
+            <li>Make sure your hair is not blocking the face.</li>
+            <li>Make sure no other faces are within the cam frame.
+          </ul>
+          <hr/>
+          <form action="/create_dataset" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="inputId">Enter Phone Number</label>
+              <input type="text" class="form-control" name="userId" id="inputId" placeholder="Enter Id">
+            </div>
+            <button type="submit" class="btn btn-warning">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+   
+    <!--======================================== 
+
+           Contact
+
+    ========================================
+
+
+
+    <section id="contact" class="section-padding">
+
+        <div class="container">
+
+            <h2>Contact Us</h2>
+
+            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</p>
+
+            <p>sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+
+        </div>
+
+        Contact Info 
+
+        <div class="container contact-info">
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <div class="icon-box">
+
+                        <i class="material-icons">place</i>
+
+                        <h4>Address</h4>
+                        <p>IIT (ISM) Dhanbad</p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="icon-box">
+
+                        <i class="material-icons">phone</i>
+
+                        <h4>Call Us On</h4>
+                        <p>+91 9373456377</p>
+                        <p>+91 8484880852</p>
+
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+
+                    <div class="icon-box">
+
+                        <i class="material-icons">email</i>
+
+                        <h4>Email us on</h4>
+                        <p>memonsameer4@gmail.com</p>
+                        <p>harsheenkrajpal@gmail.com</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>-->
+    {% endblock %}

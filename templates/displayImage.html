@@ -1,0 +1,19 @@
+{% extends 'layout.html' %} {% block content %}
+
+<img src="{{imgPath}}" />
+<br />
+<br />
+<div>
+  <span>
+    <form action="deny/{{id}}" method="GET">
+      <button type="submit" class="btn btn-blue btn-lg">Deny</button>
+    </form>
+
+    <form action="deny/{{id}}" method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-blue btn-lg">Confirm</button>
+    </form>
+  </span>
+</div>
+
+{% endblock %}
