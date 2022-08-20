@@ -20,20 +20,16 @@ from django.urls import path, include
 from django.views.generic.base import TemplateView 
 
 urlpatterns = [
-    url(r'^$', app_views.home),
-    url(r'^index', app_views.index),
+    path('', app_views.index),
     url(r'^error_image$', app_views.errorImg),
     url(r'^create_dataset$', app_views.create_dataset),
-    url(r'^trainer$', app_views.trainer),
-    url(r'^detect$', app_views.detect),
+    path('detect/', app_views.detect),
     url(r'^admin/', admin.site.urls),
     #url(r'^records/', include('records.urls')),
     path('<str:id>', app_views.displayImage),
     path('accounts/', include('django.contrib.auth.urls')), 
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('accounts/', include('accounts.urls')), 
     path('deny/<str:id>', app_views.delete),
-    path('confirm/', app_views.trainer),
-    path('verify/<str:id>', app_views.verify),
-
+    path('attendance/<str:id>', app_views.attendance),
+    path('mark/<str:id>', app_views.mark)
 ]

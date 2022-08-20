@@ -20,13 +20,50 @@ import pickle
 
 from .settings import BASE_DIR
 # Create your views here.
-def home(request):
-    return render(request, 'home1.html')
 def errorImg(request):
     return render(request, 'error.html')
 
 def index(request):
     return render(request, 'index.html')
+
+
+#method that displays the confirmation page
+def displayImage(request, id):
+    path = BASE_DIR+f"\\ml\\dataset\\user.{id}.1.jpg"
+    shutil.copy(path, BASE_DIR+'\\static' )
+    imgPath = f"\\static\\user.{id}.1.jpg"
+    return render(request, 'displayImage.html', {
+        "imgPath" : imgPath,
+        "id":id,
+    })
+
+#method that the form submission of displayImage occurs at
+def delete(request,id):
+    if request.method=='GET':
+        for i in range(1,37):
+            path = BASE_DIR+f"\\ml\\dataset\\user.{id}.{i}.jpg"
+            os.remove(path)
+        imgPath=BASE_DIR + f"\\static\\user.{id}.1.jpg"
+        os.remove(imgPath)        
+        return redirect("/")
+
+    elif request.method=='POST':
+        trainer()
+        return redirect(f"/attendance/{id}")
+
+#method to display the attendance page
+def attendance(request, id):    
+    return render(request, "attendance.html", {
+        "id" : id,
+    })
+
+#method where form submission of attendance occurs at
+def mark(request, id):
+    if request.method == 'GET':
+        return redirect("/")
+
+    elif request.method == 'POST':
+        detect()
 
 def create_dataset(request):
     #print request.POST
@@ -88,31 +125,6 @@ def create_dataset(request):
     # destroying all the windows
     cv2.destroyAllWindows()    
     return redirect(f"/{id}")
-
-def displayImage(request, id):
-    path = BASE_DIR+f"\\ml\\dataset\\user.{id}.1.jpg"
-    shutil.copy(path, BASE_DIR+'\\static' )
-    imgPath = f"\\static\\user.{id}.1.jpg"
-    return render(request, 'displayImage.html', {
-        "imgPath" : imgPath,
-        "id":id,
-    })
-def delete(request,id):
-    if request.method=='GET':
-        for i in range(1,37):
-            path = BASE_DIR+f"\\ml\\dataset\\user.{id}.{i}.jpg"
-            os.remove(path)
-        imgPath=BASE_DIR + f"\\static\\user.{id}.1.jpg"
-        os.remove(imgPath)
-        
-        return redirect("/index")
-    elif request.method=='POST':
-        trainer()
-        return redirect("/attendance.html")
-
-def verify(request,id):
-    if request.method=='GET':
-        return render(request,"attendance.html")
 
 
 def trainer():
@@ -182,7 +194,7 @@ def trainer():
     
 
 
-def detect(request):
+def detect():
     faceDetect = cv2.CascadeClassifier(BASE_DIR+'/ml/haarcascade_frontalface_default.xml')
 
     cam = cv2.VideoCapture(0)
@@ -222,8 +234,11 @@ def detect(request):
             cam.release()
             cv2.destroyAllWindows()
             print(userId)
-            return redirect('/records/details/'+str(userId))
+            return redirect('/')
 
     cam.release()
     cv2.destroyAllWindows()
     return redirect('/index')
+
+
+
